@@ -8,6 +8,49 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n) {}
+function memoize(fn) {
+  //obj that stores all of calls to fast fn
+  //record of all previous calls to fn and respective results
+  const cache = {}; 
+
+  //this returned anonymous fn will take in arg intended to be called with slow fib fn
+  //but we don't know how many arg it'll take
+  return function(...args) {
+    //if fn has been called with set of certain arg, return it and don't do any work/call original fn
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    //fn refers to slowFib fn
+    const result = fn.apply(this, args);
+    cache[args] = result;
+
+    return result;
+  };
+}
+
+function slowFib(n) {
+  if (n < 2) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+}
+
+const fib = memoize(slowFib);
 
 module.exports = fib;
+
+
+// function fib(n) {
+//   const result = [0, 1];
+
+//   for (let i = 2; i <= n; i++) {
+//     const a = result[result.length - 1];
+//     const b = result[result.length - 2];
+
+//     result.push(a + b);
+//   }
+
+//   return result[n]; //result[result.length - 1]
+// }
