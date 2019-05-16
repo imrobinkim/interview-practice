@@ -12,6 +12,22 @@
 //   c.next = b;
 //   circular(l) // true
 
-function circular(list) {}
+function circular(list) {
+  let slow = list.getFirst(); // or list.head
+  let fast = list.getFirst();
+
+  //if either value of fast.next/fast.next.next are equal to null, it means there's an end to linked list (exit while loop and return false)
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    //if slow and fast point to same obj/node in memory (same instance in memory), then linked list is a circular one
+    if (slow === fast) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 module.exports = circular;
