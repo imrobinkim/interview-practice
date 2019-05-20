@@ -10,11 +10,15 @@
 
 function chunk(array, size) {
   const chunked = [];
-  let index = 0;
 
-  while (index < array.length) {
-    chunked.push(array.slice(index, index + size));
-    index += size;
+  for (let num of array) {
+    const last = chunked[chunked.length - 1];
+
+    if (!last || last.length === size) {
+      chunked.push([num]);
+    } else {
+      last.push(num);
+    }
   }
 
   return chunked;
@@ -22,17 +26,15 @@ function chunk(array, size) {
 
 module.exports = chunk;
 
+
+
 // function chunk(array, size) {
 //   const chunked = [];
+//   let index = 0;
 
-//   for (let num of array) {
-//     const last = chunked[chunked.length - 1];
-
-//     if (!last || last.length === size) {
-//       chunked.push([num]);
-//     } else {
-//       last.push(num);
-//     }
+//   while (index < array.length) {
+//     chunked.push(array.slice(index, index + size));
+//     index += size;
 //   }
 
 //   return chunked;
