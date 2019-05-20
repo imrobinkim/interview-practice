@@ -20,7 +20,7 @@
 
 //default value of 0 for row b/c you're starting recursion at 
 //first row (same with line to console log)
-function steps(n, row = 0, stair ='') {
+function steps(n, row = 0, stair = '') {
   //recursive solution 
   //First, identify base case - where to stop recursive process (i.e. 1 or 0) otherwise stuck in infinite recursion
   if (n === row) {
